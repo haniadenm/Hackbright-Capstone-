@@ -1,4 +1,5 @@
 from jinja2 import StrictUndefined
+import os
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import LoginManager, login_user, login_user, logout_user, login_required, current_user
 #from flask_security import current_user, user_loader
@@ -42,10 +43,6 @@ def load_user(parent_id):
 def index():
     return render_template('index.html')
 
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html', parent=parent.parent)
 
 '''Login'''
 
@@ -97,7 +94,7 @@ def signup_post():
 		session["parent_id"] = parent_id
 
 		flash("New parent profile created!")
-		return redirect(f"/profile/{userid}")
+		return redirect(f"/profile/{parent_id}")
 	else:
 		return redirect(f"/")
 
@@ -106,6 +103,23 @@ def signup_post():
 def logout():
     logout_user()
     return redirect ('/index')
+
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template("/profile.html", parent=current_user.parent)
+
+'''@app.route('/profile/<int:parent_id>')
+def parentprofile(parent_id):
+	"""This is the parent's homepage."""
+	
+	child = Child.query.filter_by(parent_id=parent_id).all()
+	activity = Activity.query.filter_by(activity_name=activity_name).all()
+
+	return render_template('profile.html',
+						   activity_name=activity_name,
+						   parent_id=parent_id,
+						   child=child)'''
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the

@@ -29,10 +29,8 @@ class Parent(db.Model, UserMixin):
 
     username = db.Column(db.String(25), nullable=False, unique=False)
     password = db.Column(db.String(25), nullable=False, unique=True)
-
-    #activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id'), unique=True)
-
     
+    #activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id'), unique=False)
 
     #activities = db.relationship('Activity', backref= parents)
 
