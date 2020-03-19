@@ -39,7 +39,9 @@ class Parent(db.Model, UserMixin):
         """ returns a human-readable representation of a parent."""
         """ DO I NEED TO PUT activity_id in  return? since its """
         return f'<Parent parent_id={self.parent_id} parent={self.parent} username={self.username} zipcode={self.zipcode}>'
-
+   
+    def get_id(self):
+        return self.parent_id
 
 class Child(db.Model, UserMixin):
     """Data model for Child, belonging to Parents dashboard."""

@@ -59,7 +59,7 @@ def login_post():
     check_parent = Parent.query.filter_by(username = username).first()
 
     if check_parent.password == password:
-    	session["parent_id"] = check_parent.parent_id
+    	login_user(check_parent)
     	return redirect(f"/profile/{check_parent.parent_id}")
     else:
     	flash("Incorrect username and/or password. Please try again.")
@@ -104,7 +104,6 @@ def logout():
     return redirect ('/index')
 
 @app.route('/profile/<int:parent_id>')
-@login_required
 def parentprofile(parent_id):
 	"""This is the parent's homepage."""
 
