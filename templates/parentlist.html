@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+<head>
+	<h1 class="title">
+  You would like to meet other parents
+</h1>
+<p>
+	{{parent.parent}}
+</p>
+
+</head>
+
+<body>
+<h1>Here's a list of parents</h1>
+<form action="/parentlist">
+<p>{{ parent_name }}</p>
+<p>{{ parents }}</p>
+<br>
+
+</form>
+
+</body>
+</html>
+
+
+{% endblock %}

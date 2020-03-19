@@ -115,7 +115,32 @@ def parentprofile(parent_id):
 						   child=child)
 
 
+@app.route('/intent')
+def choose_intent():
+    """Have parents choose a path."""
 
+    meet_parent = request.args.get("meetparents")
+    connect_child = request.args.get("connectchild")
+
+    if intent == "1":
+        all_parents = Parent.query.filter(Parent.parent_name).all()
+
+        parent_names = []
+
+        for parent in all_parents:
+            parent_names.append(parent.parent_name)
+
+        return render_template("parentlist.html", parent_names=parent_name, zipcode=zipcode	)
+
+    elif intent == "2":
+        
+        all_children = Child.query.filter(Child.child_name.any(child_id)).all()
+        children_names = []
+        for item in all_children:
+            children_names.append(child.child_name)
+
+        children_list = Child.query.filter(Child.child_name == 2).all()
+        return render_template("children_detail.html", child_name=child_name, age=age, zipcode=zipcode)
 
 
 '''@app.route("/parents/<int:parent_id>")

@@ -7,38 +7,18 @@
 <p>
 	{{parent.parent}}
 </p>
-{% for children in child %}
-    <div class="card">
-        <div class="card-header">{{ child.childs_name }}</div>
-        <div class="card-body">
-            <p class="card-text">{{ child.childs_age }} ...</p>
-            <a href="/children/{{ childs_id }}" class="card-link">Read more ...</a>
-        </div>
-    </div>
 
-<p>
-  View Children:
-  <a href="http://localhost:5000/Children/{{ parent.parent }}">Children</a>
-</p>
+    <h1>Choose your path</h1>
 
-<p>
-  View friends list:
-  <a href="http://localhost:5000/friends/{{ parent.parent }}">Friends</a>
-</p>
+    <form action="/parentlist">
+      <input type="checkbox" id="checkbox1" name="intent" value="1">
+      <label for="checkbox1"> Meet Other Parents</label><br>
 
-<p>
-  View activities:
-  <a href="http://localhost:5000/activities/{{ parent.parent_id }}">Activities</a>
-</p>
+      <input type="checkbox" id="checkbox2" name="intent" value="2">
+      <label for="checkbox2"> Connect my child</label><br>
+    
+      <input type="submit" value="Submit">
+    </form>
 
-<p>
-  View requests:
-  <a href="http://localhost:5000/requests/{{ parent.parent_id }}">Requests</a>
-</p>
 
-<p>    
-  <a href="http://localhost:5000/register">Logout</a>
-</p>
-
-{% endfor %}
 {% endblock %}
