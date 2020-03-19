@@ -4,6 +4,13 @@
 <h1 class="title">
   Welcome!!!
 </h1>
+<p>
+	{{parent.parent}}
+</p>
 
-
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('profile') }}" class="navbar-item">
+    Profile
+    </a>
+    {% endif %}
 {% endblock %}

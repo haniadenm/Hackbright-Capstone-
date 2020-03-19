@@ -1,6 +1,6 @@
 from jinja2 import StrictUndefined
 import os
-from flask import render_template, redirect, url_for, request, flash
+from flask import render_template, redirect, url_for, request, flash, Blueprint
 from flask_login import LoginManager, login_user, login_user, logout_user, login_required, current_user
 #from flask_security import current_user, user_loader
 #from flask.ext.login import current_user
@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 import os
 
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """ return this file (server.py) into webapplication """
@@ -19,7 +20,7 @@ app.jinja_env.undefined = StrictUndefined
 app.jinja_env.auto_reload = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-#server = Blueprint('server', __name__)
+auth = Blueprint('auth', __name__)
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "Abc123"
@@ -103,13 +104,15 @@ def logout():
     return redirect ('/index')
 
 @app.route('/profile/<int:parent_id>')
+@login_required
 def parentprofile(parent_id):
 	"""This is the parent's homepage."""
+
 	parent = Parent.query.filter_by(parent_id=parent_id).first()
 	child = Child.query.filter_by(parent_id=parent_id).all()
 
 	return render_template('profile.html',
-						   parent_id=parent_id,
+						   parent=parent,
 						   child=child)
 
 
