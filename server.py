@@ -65,8 +65,6 @@ def login_post():
     	return redirect("/login")
 
 
-
-
     '''if not parent and not check_password_hash(parent.password, password):
         flash('Please check your login details and try again.')
         return redirect('/login')
@@ -104,22 +102,28 @@ def logout():
     logout_user()
     return redirect ('/index')
 
-@app.route('/profile')
-@login_required
-def profile():
-    return render_template("/profile.html", parent=current_user.parent)
-
-'''@app.route('/profile/<int:parent_id>')
+@app.route('/profile/<int:parent_id>')
 def parentprofile(parent_id):
 	"""This is the parent's homepage."""
-	
+	parent = Parent.query.filter_by(parent_id=parent_id).first()
 	child = Child.query.filter_by(parent_id=parent_id).all()
-	activity = Activity.query.filter_by(activity_name=activity_name).all()
 
 	return render_template('profile.html',
-						   activity_name=activity_name,
 						   parent_id=parent_id,
-						   child=child)'''
+						   child=child)
+
+
+
+
+
+'''@app.route("/parents/<int:parent_id>")
+def parents_detail(parent_id):
+    # username = Parent.username
+    parent = Parent.query.filter_by(parent_id=parent_id).first()
+    return render_template('parent.html', parent=parent)'''
+
+
+
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
