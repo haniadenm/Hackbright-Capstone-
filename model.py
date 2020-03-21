@@ -25,23 +25,27 @@ class Parent(db.Model, UserMixin):
 
     parent_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     parent = db.Column(db.String(25), nullable=False, unique=False)
+    username = db.Column(db.String(25), nullable=False, unique=False)
+    profile_photo = db.Column(db.String(100), nullable=True)
+    #about_me = db.Column(db.Text, nullable=True)
     zipcode = db.Column(db.Integer, nullable=False, unique=False)
 
-    username = db.Column(db.String(25), nullable=False, unique=False)
     password = db.Column(db.String(25), nullable=False, unique=True)
     
-    #activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id'), unique=False)
-
-    #activities = db.relationship('Activity', backref= parents)
-
+    #activities = db.relationship('Activity', backref= 'parents')
+    children = db.relationship('Child', backref= 'parents')
+   #messages = db.relationship('Message')
 
     def __repr__(self):
         """ returns a human-readable representation of a parent."""
         """ DO I NEED TO PUT activity_id in  return? since its """
         return f'<Parent parent_id={self.parent_id} parent={self.parent} username={self.username} zipcode={self.zipcode}>'
    
-    def get_id(self):
-        return self.parent_id
+
+    def avatar(self, size):
+        """Get an avatar for the parent from Gravatar"""
+        return 'http://www.gravatar.com/avatar/%s?d=mm&s=%d' % (hashlib.md5(self.email.encode('utf-8')).hexdigest(), size)
+
 
 class Child(db.Model, UserMixin):
     """Data model for Child, belonging to Parents dashboard."""
@@ -56,11 +60,13 @@ class Child(db.Model, UserMixin):
     childs_age = db.Column(db.Integer, nullable=False, unique=False)
     zipcode = db.Column(db.Integer, nullable=False, unique=False)
 
-    activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id'), unique=False)
+
+    #parents = db.relationship('Parent', backref= 'children')
+    #activities = db.relationship('Activity', backref= 'children')
+    #activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id'), unique=False)
     parent_id = db.Column(db.Integer, db.ForeignKey('parents.parent_id'), unique= True)
 
     #parents = db.relationship('Parent', backref='children')
-    #activities = db.relationship('Activity', backref= 'children')
 
     def __repr__(self):
         """ returns a human-readable representation of a Child."""
@@ -77,6 +83,12 @@ class Activity(db.Model, UserMixin):
     activity_name = db.Column(db.String, nullable=False, unique=False)
     for_parents = db.Column(db.Boolean, default=False)
     for_children = db.Column(db.Boolean, default=False)
+    
+    parent_id = db.Column(db.Integer, db.ForeignKey('parents.parent_id'), unique= True)
+    child_id = db.Column(db.Integer, db.ForeignKey('children.child_id'), unique= True)
+
+    #parents = db.relationship('Parent', backref= 'children')
+    #children = db.relationship('Child', backref= 'parents')
 
     def __repr__(self):
         """ returns a human-readable representation of a Activity"""
