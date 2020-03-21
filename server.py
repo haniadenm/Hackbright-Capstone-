@@ -1,6 +1,5 @@
 from jinja2 import StrictUndefined
 import os
-from PIL import Image
 from flask import render_template, redirect, url_for, request, flash, Blueprint
 from flask_login import LoginManager, login_user, login_user, logout_user, login_required, current_user
 #from flask_security import current_user, user_loader
@@ -44,7 +43,7 @@ def load_user(parent_id):
 @app.route('/')
 def index():
     return render_template('index.html')
-##################################################################
+
 
 '''Login'''
 
@@ -66,6 +65,12 @@ def login_post():
     	flash("Incorrect username and/or password. Please try again.")
     	return redirect("/login")
 
+
+    '''if not parent and not check_password_hash(parent.password, password):
+        flash('Please check your login details and try again.')
+        return redirect('/login')
+    login_user(parent, remember=remember)
+    return redirect('/profile')'''
 
 @app.route('/signup')
 def signup():
@@ -90,54 +95,17 @@ def signup_post():
 	else:
 		return redirect(f"/")
 
-
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect ('/index')
 
-#################################################################
 
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+#######################################################################
 
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
-
-@app.route("/profile", methods=['GET', 'POST'])
+@app.route('/profile/<int:parent_id>')
 def parentprofile(parent_id):
-	"""This is the parent's homepage."""
-	form = UpdateAccountForm()
-	if form.validate_on_submit():
-		if form.picture.data:
-			picture_file = save_picture(form.picture.data)
-			current_user.image_file = picture_file
-		current_user.username = form.username.data
-		db.session.commit()
-		flash('Your profile has been updated!', 'success')
-		return redirect(url_for('profile'))
-	elif request.method == 'GET':
-		form.username.data = current_user.username
-	image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-	return render_template('profile.html', title='Profile',
-                           image_file=image_file, form=form)
-
-@app.route('/parents')
-def show_parents():
-    """List the parents"""
-
-    return redirect('/profile')
-
-
-'''def parentprofile(parent_id):
 	"""This is the parent's homepage."""
 
 	parent = Parent.query.filter_by(parent_id=parent_id).first()
@@ -145,57 +113,9 @@ def show_parents():
 
 	return render_template('profile.html',
 						   parent=parent,
-						   child=child)'''
-
-'''@app.route('/profile/<int:parent_id>')
-def parentprofile(parent_id):
-	"""This is the parent's homepage."""
-
-	intent = request.args.get("intentchoice")
-	
-	if intent == "1":
-		parnetlist = Parent.query.filter(Parent.parent_id).all()
-		parent_names = []
-		for parent in parentlist:
-			parent_names.append(parent.parent_name)
-			return render_template("parentlist.html", parent_names=parent_name, zipcode=zipcode	)
-		
-	elif intent == "2":
-		childrenlist = Child.query.filter(Child.child_name).all()
-		children_names = []
-
-		for item in childrenlist:
-			children_names.append(child.child_name)
-			children_list = Child.query.filter(Child.child_name == 2).all()
-			return render_template("childrenlist.html", child_name=child_name, age=age, zipcode=zipcode)'''
+						   child=child)
 
 
-'''@app.route('/intent')
-def choose_intent():
-    """Have parents choose a path."""
-
-    meet_parent = request.args.get("meetparents")
-    connect_child = request.args.get("connectchild")
-
-    if intent == "1":
-        all_parents = Parent.query.filter(Parent.parent_name).all()
-
-        parent_names = []
-
-        for parent in all_parents:
-            parent_names.append(parent.parent_name)
-
-        return render_template("parentlist.html", parent_names=parent_name, zipcode=zipcode	)
-
-    elif intent == "2":
-        
-        all_children = Child.query.filter(Child.child_name.any(child_id)).all()
-        children_names = []
-        for item in all_children:
-            children_names.append(child.child_name)
-
-        children_list = Child.query.filter(Child.child_name == 2).all()
-        return render_template("children_detail.html", child_name=child_name, age=age, zipcode=zipcode)'''
 
 
 '''@app.route("/parents/<int:parent_id>")
