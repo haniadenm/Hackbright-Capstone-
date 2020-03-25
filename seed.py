@@ -17,7 +17,7 @@ def load_parents():
     Parent.query.delete()
 
     # Read u.user file and insert data
-    for row in open("seed_data/p.user"):
+    for row in open("data/p.user"):
         row = row.rstrip()
         parent_id, parent, zipcode, username, password  = row.split("|")
 
@@ -34,31 +34,33 @@ def load_parents():
     db.session.commit()
 
 
-#def load_children():
+def load_children():
     """Load chidlren from c.user into database."""
 
-   # print("Child")
+    print("Child")
 
     # Delete all rows in table, so if we need to run this a second time,
     # we won't be trying to add duplicate children
-   # Parent.query.delete()
+    Child.query.delete()
 
     # Read u.user file and insert data
-    #for row in open("seed_data/c.user"):
-        #row = row.rstrip()
-        #childs_id, childs_name, childs_age, zipcode, password = row.split("|")
+    for row in open("data/c.user"):
+        row = row.rstrip()
+        childs_id, childs_name, childs_age, zipcode, parent_id = row.split("|")
 
-       # parent = Parent(parent_id=parent_id,
-                   # parent=parent,
-                   # zip=zip)
+        chidlren = Child(child_id=child_id,
+                    childs_name=childs_name,
+                    childs_age=childs_age,
+                    zipcode=zipcode,
+                    parent_id=parent_id)
 
         # We need to add to the session or it won't ever be stored
-        '''db.session.add(parent)
+        db.session.add(parent)
 
     # Once we're done, we should commit our work
     db.session.commit()
 
-
+''' 
 def load_ratings():
     """Load ratings from u.data into database."""
 

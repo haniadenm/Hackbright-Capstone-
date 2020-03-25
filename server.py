@@ -34,17 +34,22 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(parent_id):
-	return Parent.query.get(int(parent_id))
+    return Parent.query.get(int(parent_id))
 
 
 def load_user(parent_id):
     return Parent.get(parent_id)
 
+
+
+################################################################################
+#route for homepage 
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
+################################################################################
 '''Login'''
 
 @app.route('/login')
@@ -59,18 +64,15 @@ def login_post():
     check_parent = Parent.query.filter_by(username = username).first()
 
     if check_parent.password == password:
-    	login_user(check_parent)
-    	return redirect(f"/profile/{check_parent.parent_id}")
+        login_user(check_parent)
+        return redirect(f"/profile/{check_parent.parent_id}")
     else:
-    	flash("Incorrect username and/or password. Please try again.")
-    	return redirect("/login")
+        flash("Incorrect username and/or password. Please try again.")
+        return redirect("/login")
 
+################################################################################
 
-    '''if not parent and not check_password_hash(parent.password, password):
-        flash('Please check your login details and try again.')
-        return redirect('/login')
-    login_user(parent, remember=remember)
-    return redirect('/profile')'''
+#signup 
 
 @app.route('/signup')
 def signup():
@@ -78,23 +80,25 @@ def signup():
 
 @app.route('/signup', methods=['POST'])
 def signup_post():
-	if request.method == "POST":
-		parent = request.form.get('parent')
-		zipcode = request.form.get('zipcode')
-		username = request.form.get('username')
-		password = request.form.get('password')
-		new_parent = Parent(parent=parent, zipcode=zipcode, username=username, password=password)
-		db.session.add(new_parent)
-		db.session.commit()
+    if request.method == "POST":
+        parent = request.form.get('parent')
+        zipcode = request.form.get('zipcode')
+        username = request.form.get('username')
+        password = request.form.get('password')
+        new_parent = Parent(parent=parent, zipcode=zipcode, username=username, password=password)
+        db.session.add(new_parent)
+        db.session.commit()
 
-		parent_id = new_parent.parent_id
-		session["parent_id"] = parent_id
+        parent_id = new_parent.parent_id
+        session["parent_id"] = parent_id
 
-		flash("New parent profile created!")
-		return redirect(f"/profile/{parent_id}")
-	else:
-		return redirect(f"/")
+        flash("New parent profile created!")
+        return redirect(f"/profile/{parent_id}")
+    else:
+        return redirect(f"/")
 
+################################################################################
+#logout
 @app.route('/logout')
 @login_required
 def logout():
@@ -104,25 +108,28 @@ def logout():
 
 #######################################################################
 
+
+@app.route("/parents")
+def parent_list():
+    parents = Parent.query.all()
+    return render_template("parentlist.html", parents = parents)
+
+
+
 @app.route('/profile/<int:parent_id>')
 def parentprofile(parent_id):
-	"""This is the parent's homepage."""
+    """This is the parent's homepage."""
+     
+    parent = Parent.query.get(parent_id)
+    children = Child.query.filter_by(parent_id=parent_id).all()
+    activities = Activity.query.filter_by(parent_id=parent_id).all()
 
-	parent = Parent.query.filter_by(parent_id=parent_id).first()
-	child = Child.query.filter_by(parent_id=parent_id).all()
-
-	return render_template('profile.html',
-						   parent=parent,
-						   child=child)
+    return render_template("profile.html",
+                           children=children,
+                           activities=activities,
+                           parent=parent)
 
 
-
-
-'''@app.route("/parents/<int:parent_id>")
-def parents_detail(parent_id):
-    # username = Parent.username
-    parent = Parent.query.filter_by(parent_id=parent_id).first()
-    return render_template('parent.html', parent=parent)'''
 
 
 

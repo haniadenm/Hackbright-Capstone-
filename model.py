@@ -30,6 +30,7 @@ class Parent(db.Model, UserMixin):
     password = db.Column(db.String(25), nullable=False, unique=True)
     
     children = db.relationship('Child', backref='parents', secondary = "parent_child")
+    activities = db.relationship('Activity', backref= 'parents', secondary= "parent_activity")
 
     def __repr__(self):
         """ returns a human-readable representation of a parent."""
@@ -40,7 +41,6 @@ class Parent(db.Model, UserMixin):
     #profile_photo = db.Column(db.String(100), nullable=True)
     #about_me = db.Column(db.Text, nullable=True)
 
-    #activities = db.relationship('Activity', backref= 'parents')
     #children = db.relationship('Child', backref= 'parents')
     #messages = db.relationship('Message')
 
@@ -57,7 +57,7 @@ class Child(db.Model, UserMixin):
     childs_age = db.Column(db.Integer, nullable=False, unique=False)
     zipcode = db.Column(db.Integer, nullable=False, unique=False)
 
-    #activities = db.relationship('Activity', backref= 'children')
+    activities = db.relationship('Activity', backref= 'children', secondary= "child_activity")
     parent_id = db.Column(db.Integer, db.ForeignKey('parents.parent_id'), unique= True)
 
 
@@ -87,12 +87,7 @@ class Activity(db.Model, UserMixin):
     childs_id = db.Column(db.Integer, db.ForeignKey('children.childs_id'), unique= True)
 
 
-    childsactivity = db.relationship('Child', backref='activities', secondary = "child_activity")
-    parentsactivity = db.relationship('Parent', backref='activities', secondary = "parent_activity")
-
-    #parents = db.relationship('Parent', backref= 'children')
-    #children = db.relationship('Child', backref= 'parents')
-
+    
     def __repr__(self):
         """ returns a human-readable representation of a Activity"""
         return f'<Activity activity_id={self.activity_id} activity_name={self.activity_name}>'
