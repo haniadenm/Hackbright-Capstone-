@@ -50,7 +50,7 @@ def index():
     return render_template('index.html')
 
 ################################################################################
-'''Login'''
+#Login
 
 @app.route('/login')
 def login():
@@ -72,7 +72,7 @@ def login_post():
 
 ################################################################################
 
-#signup 
+#Signup 
 
 @app.route('/signup')
 def signup():
@@ -98,7 +98,7 @@ def signup_post():
         return redirect(f"/")
 
 ################################################################################
-#logout
+#Logout
 @app.route('/logout')
 @login_required
 def logout():
@@ -106,7 +106,7 @@ def logout():
     return redirect ('/index')
 
 
-#######################################################################
+################################################################################
 
 
 @app.route("/parents")
@@ -130,9 +130,30 @@ def parentprofile(parent_id):
                            parent=parent)
 
 
+################################################################################
+
+@app.route("/children")
+def children_list():
+    children = Child.query.all()
+    return render_template("childrenlist.html", children = children)
 
 
 
+@app.route('/children/<int:child_id>')
+def childprofile(child_id):
+    """This is the parent's homepage."""
+     
+    child_name = Child.query.get(child_id)
+    parents = Parent.query.filter_by(child_id=child_id).all()
+    activities = Activity.query.filter_by(child_id=child_id).all()
+
+    return render_template("childprofil.html",
+                           child_name=child_name,
+                           activities=activities,
+                           parents=parents)
+
+
+################################################################################
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the

@@ -1,4 +1,5 @@
 from flask import Flask
+from hashlib import md5
 from flask_security import UserMixin
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy, Model
@@ -37,8 +38,12 @@ class Parent(db.Model, UserMixin):
         return f'<Parent parent_id={self.parent_id} parent={self.parent} username={self.username} zipcode={self.zipcode}>'
     def get_id(self):
         return (self.parent_id)
+
+    def avatar(self, size):
+        digest = md5(self.username.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
     #extra features to work on 
-    #profile_photo = db.Column(db.String(100), nullable=True)
     #about_me = db.Column(db.Text, nullable=True)
 
     #children = db.relationship('Child', backref= 'parents')
