@@ -1,19 +1,15 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block head %}
 
-{% block content %}
-<html>
-<head>
-	<h1 class="title">
-  Heres a list of parents
-</h1>
-<p>
-	{{parent.parent}}
-</p>
+<title> It takes a Village </title>
 
-</head>
+{% endblock %}
 
-<body>
-<h1>Parents</h1>
+
+{% block body %}
+<div class="well spaced" style="width:60%">
+  <h2>Users</h2>
+
   <ul>
     {% for parent in parents %}
       <li>
@@ -24,11 +20,6 @@
     {% endfor %}
   </ul>
 
-
-
-</body>
-</html>
-
-
-
+</div>
 {% endblock %}
+

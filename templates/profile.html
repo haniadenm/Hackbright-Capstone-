@@ -13,52 +13,98 @@
         </tr>
     </table>
     <hr>
+</p>
 
 
-<div>
-    <br>
-    <p>
-    {{parent.activities}}
-    </p>
-<a href="/activities?next_route=add_entry" class="btn btn-outline-success" role="button">Select an activity</a>
-    <br>
-</div>
-
-
-<div>
-    <br>
-    <p>
-    {{parent.children}}
-    </p>
-<a href="/add_child?next_route=add_location" class="btn btn-outline-success" role="button">Connect your child</a>
-    <br>
-</div>
-
-
-<div>
-    <br>
-    <p>
-
-    </p>
-<a href="/parentlist?next_route=add_location" class="btn btn-outline-success" role="button">View parents profile</a>
-    <br>
-</div>
-
-
+<p>
+</h1>
+    <table>
+        <tr>
+            <h1>Choose your intent</h1>
+        </a>
+        </tr>
+    </table>
     <hr>
-    {% for activity in activities %}
+</p>
+
+<h1 class="title">
+
+
+</h1>
+    <table>
+        <tr>
+            <a href="/parentlist?next_route=add_location" class="btn btn-outline-success" role="button">Meet parents</a>
+            <div class="container">
+            <a href="/activitylist?next_route=add_location" class="btn btn-outline-success" role="button">View list of activities</a>
+            <div class="container">
+
+            <br>
+            <p>Your list</p>
+            {% if activities %}
+             <ul>
+            {% for activity in activities %}
+            <li><a href="/activities/{{activity.activity_id}}">{{activity.activity_name}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+    </br>
+        </tr>
+    </table>
+    <hr>
+</p>
+<p>
+</h1>
+    <table>
+        <tr>
+            <a href="/childrenslist?next_route=add_location" class="btn btn-outline-success" role="button">Connect my child</a>
+            <div class="container">
+    <p>List of children</p>
+    {% if children %}
+        <ul>
+            {% for child in children %}
+            <li><a href="/children/{{child.childs_id}}">{{child.childs_name}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+        </tr>
+    </table>
+    <hr>
+</p>
+
+
+
+
+
+    <br>
+
+
+<div>
+    <br>
     <p>
-    {{ activity.parent }} View activities: <b>{{ post.body }}</b>
     </p>
-    {% endfor %}
+<a href="/parentlist?next_route=add_location" class="btn btn-outline-success" role="button">Add Activities</a>
+    <br>
+</div>
+
+<div>
+    <br>
+    <p>
+    </p>
+<a href="/parentlist?next_route=add_location" class="btn btn-outline-success" role="button">Edit profile information</a>
+    <br>
+</div>
+<div>
+    <br>
+    <p>
+
+
+
+
+
 {% endblock %}
 
 
 
-
-
-
-
-
-
-
+  

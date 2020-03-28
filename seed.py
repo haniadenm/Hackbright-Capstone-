@@ -1,7 +1,7 @@
 from sqlalchemy import func
 from model import Parent
-# from model import Child
-# from model import Activities
+from model import Child
+from model import Activity
 
 from model import connect_to_db, db
 from server import app
@@ -14,7 +14,7 @@ def load_parents():
 
     # Delete all rows in table, so if we need to run this a second time,
     # we won't be trying to add duplicate parents
-    Parent.query.delete()
+
 
     # Read u.user file and insert data
     for row in open("data/p.user"):
@@ -37,55 +37,71 @@ def load_parents():
 def load_children():
     """Load chidlren from c.user into database."""
 
-    print("Child")
+    print("Children")
 
     # Delete all rows in table, so if we need to run this a second time,
-    # we won't be trying to add duplicate children
-    Child.query.delete()
+
 
     # Read u.user file and insert data
     for row in open("data/c.user"):
         row = row.rstrip()
-        childs_id, childs_name, childs_age, zipcode, parent_id = row.split("|")
+        childs_id, childs_name, childs_age, zipcode,parent_id= row.split("|")
 
-        chidlren = Child(child_id=child_id,
+        child = Child(childs_id=childs_id,
                     childs_name=childs_name,
                     childs_age=childs_age,
                     zipcode=zipcode,
                     parent_id=parent_id)
 
         # We need to add to the session or it won't ever be stored
-        db.session.add(parent)
+        db.session.add(child)
 
     # Once we're done, we should commit our work
     db.session.commit()
 
-''' 
-def load_ratings():
-    """Load ratings from u.data into database."""
+def load_activities():
+    """Load chidlren from c.user into database."""
+
+    print("activities")
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate children
 
 
-def set_val_user_id():
-    """Set value for the next user_id after seeding database"""
+    # Read u.user file and insert data
+    for row in open("data/a.user"):
+        row = row.rstrip()
+        activity_id, activity_name, for_parents, for_children, parent_id, childs_id = row.split("|")
 
-    # Get the Max user_id in the database
-    result = db.session.query(func.max(User.user_id)).one()
-    max_id = int(result[0])
+        for_parents = bool(for_parents)
+        for_children = bool(for_children)
 
-    # Set the value for the next user_id to be max_id + 1
-    query = "SELECT setval('users_user_id_seq', :new_id)"
-    db.session.execute(query, {'new_id': max_id + 1})
-    db.session.commit() '''
+        activity = Activity(activity_id=activity_id,
+                    activity_name=activity_name,
+                    for_parents=for_parents,
+                    for_children=for_children,
+                    parent_id=parent_id,
+                    childs_id=childs_id)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(activity)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
 
 
 if __name__ == "__main__":
     connect_to_db(app)
 
-    # In case tables haven't been created, create them
     db.create_all()
+    # In case tables haven't been created, create them
+    Activity.query.delete()
+    Child.query.delete()
+    Parent.query.delete()
+        # we won't be trying to add duplicate children
 
     # Import different types of data
     load_parents()
-    #load_movies()
-    #load_ratings()
+    load_children()
+    load_activities()
     #set_val_user_id() 

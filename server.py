@@ -109,12 +109,6 @@ def logout():
 ################################################################################
 
 
-@app.route("/parents")
-def parent_list():
-    parents = Parent.query.all()
-    return render_template("parentlist.html", parents = parents)
-
-
 
 @app.route('/profile/<int:parent_id>')
 def parentprofile(parent_id):
@@ -128,6 +122,16 @@ def parentprofile(parent_id):
                            children=children,
                            activities=activities,
                            parent=parent)
+
+
+
+@app.route('/parentlist/<int:parent_id>')
+def parent_list(parent_id):
+
+    parent = Parent.query.get(parent_id)
+    parents = Parent.query.all()
+    return render_template("parentlist.html", parent= parent,parents = parents)
+
 
 
 ################################################################################

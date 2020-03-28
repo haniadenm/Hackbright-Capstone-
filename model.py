@@ -30,8 +30,8 @@ class Parent(db.Model, UserMixin):
     zipcode = db.Column(db.Integer, nullable=False, unique=False)
     password = db.Column(db.String(25), nullable=False, unique=True)
     
-    children = db.relationship('Child', backref='parents', secondary = "parent_child")
-    activities = db.relationship('Activity', backref= 'parents', secondary= "parent_activity")
+    children = db.relationship('Child', backref='parents')
+    activities = db.relationship('Activity', backref= 'parents')
 
     def __repr__(self):
         """ returns a human-readable representation of a parent."""
@@ -57,12 +57,12 @@ class Child(db.Model, UserMixin):
     #Below I am defining columns and relationships of Child
 
 
-    childs_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    childs_id = db.Column(db.Integer,primary_key=True)
     childs_name = db.Column(db.String, nullable=False, unique=False)
     childs_age = db.Column(db.Integer, nullable=False, unique=False)
     zipcode = db.Column(db.Integer, nullable=False, unique=False)
 
-    activities = db.relationship('Activity', backref= 'children', secondary= "child_activity")
+    activities = db.relationship('Activity', backref= 'children')
     parent_id = db.Column(db.Integer, db.ForeignKey('parents.parent_id'), unique= True)
 
 
@@ -83,7 +83,7 @@ class Activity(db.Model, UserMixin):
 
     #Below I am defining columns and relationships of Activities
 
-    activity_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    activity_id = db.Column(db.Integer, primary_key=True)
     activity_name = db.Column(db.String, nullable=False, unique=False)
     for_parents = db.Column(db.Boolean, default=False)
     for_children = db.Column(db.Boolean, default=False)
@@ -97,7 +97,7 @@ class Activity(db.Model, UserMixin):
         """ returns a human-readable representation of a Activity"""
         return f'<Activity activity_id={self.activity_id} activity_name={self.activity_name}>'
 
-class Parentchild(db.Model, UserMixin):
+'''class Parentchild(db.Model, UserMixin):
     #parent_id (foreign key)
     #child_id(FK)
     __tablename__ = "parent_child"
@@ -130,9 +130,9 @@ class Parentactivity(db.Model, UserMixin):
 
     parent_activity_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('parents.parent_id'))
-    activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id'))
+    activity_id = db.Column(db.Integer, db.ForeignKey('activities.activity_id')) '''
 
-        ##############################################################################
+##############################################################################
 # Helper functions
 
 def connect_to_db(app):
@@ -155,4 +155,5 @@ if __name__ == "__main__":
     from server import app
     connect_to_db(app)
     db.create_all()
+    #db.drop_all()
     print("Connected to DB.")
