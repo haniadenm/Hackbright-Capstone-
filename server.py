@@ -177,12 +177,21 @@ def childprofile(child_id):
                            childs_name=childs_name,
                            matches=matches)
 
-@app.route('/childlist')
+@app.route('/childrenlist')
 def show_children():
     """List the children"""
-    children = Child.query.all()
-    return render_template('childlist.html', children=children)
+    childs_name = Child.query.all()
+    return render_template('childrenlist.html', childs_name=childs_name)
 
+
+
+
+
+#todo
+#connection from one childs profile to the other 
+#set up each activity page (coffee shop, etc )
+#make sure matches are correct 
+#edit the edit profile info page  
 
 ################################################################################
 
