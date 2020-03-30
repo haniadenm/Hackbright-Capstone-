@@ -134,13 +134,18 @@ def parentprofile(parent_id):
     """This is the parent's homepage."""
      
     parent = Parent.query.get(parent_id)
+    #matches = Parent.query.filter(Activity.activity_id==1).all()
+    matches = db.session.query(Parent).filter(Activity.activity_id==(1)).all()
+
+
     #children = Child.query.filter(Child.parents.parent_id==parent_id).all()
     #activities = Activity.query.filter(Activity.parents.parent_id==parent_id).all()
 
     return render_template("profile.html",
                            #children=children,
                            #activities=activities,
-                           parent=parent)
+                           parent=parent,
+                           matches=matches)
 
 
 @app.route('/parentlist')
@@ -149,6 +154,9 @@ def show_parents():
     parents = Parent.query.all()
     return render_template('parentlist.html', parents=parents)
 
+
+
+################################################################################
 
 @app.route('/activitylist')
 def show_activities():

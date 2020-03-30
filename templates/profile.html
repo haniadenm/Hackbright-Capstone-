@@ -45,6 +45,14 @@
 </h1>
     <table>
         <tr>
+         <p> Matches </p>
+         {% if matches %}
+         <ul>
+         {%for match in matches%}
+         <li><a href="/profile/{{match.parent_id}}">{{match.username}}</a></li>
+         {% endfor %}
+     </ul>
+     {% endif %}
          <br>
             <p>Your activities of choice</p>
             {% if parent.activities %}

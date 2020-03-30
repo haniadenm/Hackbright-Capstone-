@@ -82,8 +82,6 @@ class Activity(db.Model, UserMixin):
     for_parents = db.Column(db.Boolean, default=False)
     for_children = db.Column(db.Boolean, default=False)
     
-
-
     
     def __repr__(self):
         """ returns a human-readable representation of a Activity"""
