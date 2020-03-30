@@ -115,12 +115,12 @@ def parentprofile(parent_id):
     """This is the parent's homepage."""
      
     parent = Parent.query.get(parent_id)
-    children = Child.query.filter_by(parent_id=parent_id).all()
-    activities = Activity.query.filter_by(parent_id=parent_id).all()
+    #children = Child.query.filter(Child.parents.parent_id==parent_id).all()
+    #activities = Activity.query.filter(Activity.parents.parent_id==parent_id).all()
 
     return render_template("profile.html",
-                           children=children,
-                           activities=activities,
+                           #children=children,
+                           #activities=activities,
                            parent=parent)
 
 

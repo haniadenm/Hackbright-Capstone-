@@ -1,7 +1,7 @@
 from sqlalchemy import func
-from model import Parent
-from model import Child
-from model import Activity
+from model import Parent, Child, Activity, Parentchild, Parentactivity, Childactivity
+
+
 
 from model import connect_to_db, db
 from server import app
@@ -50,8 +50,7 @@ def load_children():
         child = Child(childs_id=childs_id,
                     childs_name=childs_name,
                     childs_age=childs_age,
-                    zipcode=zipcode,
-                    parent_id=parent_id)
+                    zipcode=zipcode)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(child)
@@ -71,7 +70,7 @@ def load_activities():
     # Read u.user file and insert data
     for row in open("data/a.user"):
         row = row.rstrip()
-        activity_id, activity_name, for_parents, for_children, parent_id, childs_id = row.split("|")
+        activity_id, activity_name, for_parents, for_children = row.split("|")
 
         for_parents = bool(for_parents)
         for_children = bool(for_children)
@@ -79,9 +78,7 @@ def load_activities():
         activity = Activity(activity_id=activity_id,
                     activity_name=activity_name,
                     for_parents=for_parents,
-                    for_children=for_children,
-                    parent_id=parent_id,
-                    childs_id=childs_id)
+                    for_children=for_children)
 
         # We need to add to the session or it won't ever be stored
         db.session.add(activity)
@@ -90,11 +87,83 @@ def load_activities():
     db.session.commit()
 
 
+def parent_child():
+    """Load chidlren from c.user into database."""
+
+    print("parent_child")
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate children
+
+
+    # Read u.user file and insert data
+    for row in open("data/parentschildren"):
+        row = row.rstrip()
+        parent_id, childs_id = row.split("|")
+
+        pc = Parentchild(parent_id=parent_id,
+                         childs_id=childs_id)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(pc)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+def childs_activity():
+    """Load chidlren from c.user into database."""
+
+    print("child_activity")
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate children
+
+
+    # Read u.user file and insert data
+    for row in open("data/childrensactivity"):
+        row = row.rstrip()
+        activity_id,childs_id = row.split("|")
+
+        ca = Childactivity(childs_id=childs_id,
+                         activity_id=activity_id)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(ca)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
+def parent_activity():
+    """Load chidlren from c.user into database."""
+
+    print("parent_activity")
+
+    # Delete all rows in table, so if we need to run this a second time,
+    # we won't be trying to add duplicate children
+
+
+    # Read u.user file and insert data
+    for row in open("data/activityparent"):
+        row = row.rstrip()
+        activity_id,parent_id = row.split("|")
+
+        pa = Parentactivity(parent_id=parent_id,
+                         activity_id=activity_id)
+
+        # We need to add to the session or it won't ever be stored
+        db.session.add(pa)
+
+    # Once we're done, we should commit our work
+    db.session.commit()
+
 if __name__ == "__main__":
     connect_to_db(app)
 
     db.create_all()
     # In case tables haven't been created, create them
+    Parentactivity.query.delete()
+    Childactivity.query.delete()
+    Parentchild.query.delete()
     Activity.query.delete()
     Child.query.delete()
     Parent.query.delete()
@@ -104,4 +173,7 @@ if __name__ == "__main__":
     load_parents()
     load_children()
     load_activities()
+    parent_child()
+    parent_activity()
+    childs_activity()
     #set_val_user_id() 
