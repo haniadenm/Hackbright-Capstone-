@@ -69,6 +69,10 @@ class Child(db.Model, UserMixin):
         """ returns a human-readable representation of a Child."""
         return f'<Child childs_id={self.childs_id} childs_name={self.childs_name} childs_age={self.childs_age}>'
 
+    def avatar(self, size):
+        digest = md5(self.childs_name.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+            digest, size)
 
 class Activity(db.Model, UserMixin):
     """Activity of dashboard."""

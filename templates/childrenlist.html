@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="well spaced" style="width:60%">
+  <h2>Parents</h2>
+
+  <ul>
+    {% for childs in children %}
+      <li>
+        <a href="/childsprofile/{{ childs.child_id }}">
+          {{ childs.child_id }} ({{ childs.childs }})
+        </a>
+      </li>
+    {% endfor %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1 class="title">
+  Profile Page
+</h1>
+    <table>
+        <tr valign="top">
+            <td><img src="{{ childs_name.avatar(128) }}"></td>
+            <td><h1>Childs profile: {{ childs_name.childs_name }}</h1></td>
+        </tr>
+    </table>
+    <hr>
+</p>
+
+            <div class="container">
+            <a href="/activitylist?next_route=activitylist" class="btn btn-outline-success" role="button">View  list of activities</a>
+            <div class="container">
+        </a>
+        </tr>
+    </table>
+    <hr>
+</p>
+
+
+</h1>
+    <table>
+        <tr>
+         <p> Matches </p>
+         {% if matches %}
+         <ul>
+         {%for match in matches%}
+         <li><a href="/profile/{{match.childs_name}}">{{match.childs_name}}</a></li>
+         {% endfor %}
+     </ul>
+     {% endif %}
+         <br>
+            <p>Your activities of choice</p>
+            {% if childs_name.activities %}
+             <ul>
+            {% for activity in childs_name.activities %}
+            <li><a href="/activities/{{activity.activity_id}}">{{activity.activity_name}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+    </br>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+    <p>List of parents</p>
+    {% if childs_name.parents %}
+        <ul>
+            {% for parent in childs_name.parents %}
+            <li><a href="/parents/{{parent.parent_id}}">{{parent.username}}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+        </tr>
+    </table>
+    <hr>
+</p>
+
+<div>
+    <br>
+    <p>
+    </p>
+<a href="/childsprofilelist?next_route=add_location" class="btn btn-outline-success" role="button">Edit profile information</a>
+    <br>
+</div>
+<div>
+    <br>
+    <p>
+
+
+
+{% endblock %}

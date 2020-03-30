@@ -45,7 +45,6 @@ def load_user(parent_id):
 ################################################################################
 #route for homepage 
 
-
 @app.route('/')
 def index():
     """Show the homepage"""
@@ -134,8 +133,8 @@ def parentprofile(parent_id):
     """This is the parent's homepage."""
      
     parent = Parent.query.get(parent_id)
-    #matches = Parent.query.filter(Activity.activity_id==1).all()
-    matches = db.session.query(Parent).filter(Activity.activity_id==(1)).all()
+    matches = Parent.query.filter(Activity.activity_id==1).all()
+    #matches = db.session.query(Parent).filter(Activity.activity_id==(1)).all()
 
 
     #children = Child.query.filter(Child.parents.parent_id==parent_id).all()
@@ -166,25 +165,23 @@ def show_activities():
 
 ################################################################################
 
-@app.route("/children")
-def children_list():
-    children = Child.query.all()
-    return render_template("childrenlist.html", children=children)
-
-
 
 @app.route('/children/<int:child_id>')
 def childprofile(child_id):
     """This is the parent's homepage."""
      
-    child_name = Child.query.get(child_id)
-    parents = Parent.query.filter_by(child_id=child_id).all()
-    activities = Activity.query.filter_by(child_id=child_id).all()
+    childs_name = Child.query.get(child_id)
+    matches = Child.query.filter(Activity.activity_id==1).all()
 
-    return render_template("childprofil.html",
-                           child_name=child_name,
-                           activities=activities,
-                           parents=parents)
+    return render_template("childsprofile.html",
+                           childs_name=childs_name,
+                           matches=matches)
+
+@app.route('/childlist')
+def show_children():
+    """List the children"""
+    children = Child.query.all()
+    return render_template('childlist.html', children=children)
 
 
 ################################################################################
