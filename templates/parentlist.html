@@ -1,24 +1,18 @@
 {% extends 'base.html' %}
-{% block head %}
-
-<title> It takes a Village </title>
-
-{% endblock %}
 
 
-{% block body %}
+{% block content %}
 <div class="well spaced" style="width:60%">
-  <h2>Users</h2>
+  <h2>Parents</h2>
 
   <ul>
     {% for parent in parents %}
       <li>
         <a href="/parents/{{ parent.parent_id }}">
-          {{ parent.parent_id }} ({{ parent.username }})
+          {{ parent.parent_id }} ({{ parent.parent }})
         </a>
       </li>
     {% endfor %}
-  </ul>
 
 </div>
 {% endblock %}

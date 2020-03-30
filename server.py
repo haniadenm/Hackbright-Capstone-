@@ -45,9 +45,28 @@ def load_user(parent_id):
 ################################################################################
 #route for homepage 
 
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    """Show the homepage"""
+
+    if 'username' in session:
+
+        username = session['username']
+        parent = Parent.query.filter_by(username=username).first_or_404()
+
+        activities = Activity.query.all()
+
+        children = Child.query.all()
+
+        parents = Parent.query.all()
+
+        return render_template("profile.html", parent=parent,activities = activities, children=children, 
+        parents=parents, username=username)
+
+    else:
+        return render_template("index.html")
+    return render_template('base.html')
 
 ################################################################################
 #Login
@@ -103,7 +122,7 @@ def signup_post():
 @login_required
 def logout():
     logout_user()
-    return redirect ('/index')
+    return redirect ('/')
 
 
 ################################################################################
@@ -124,22 +143,25 @@ def parentprofile(parent_id):
                            parent=parent)
 
 
-
-@app.route('/parentlist/<int:parent_id>')
-def parent_list(parent_id):
-
-    parent = Parent.query.get(parent_id)
+@app.route('/parentlist')
+def show_parents():
+    """List the parents"""
     parents = Parent.query.all()
-    return render_template("parentlist.html", parent= parent,parents = parents)
+    return render_template('parentlist.html', parents=parents)
 
 
+@app.route('/activitylist')
+def show_activities():
+    """List the activities"""
+    activities = Activity.query.all()
+    return render_template('activitylist.html', activities=activities)
 
 ################################################################################
 
 @app.route("/children")
 def children_list():
     children = Child.query.all()
-    return render_template("childrenlist.html", children = children)
+    return render_template("childrenlist.html", children=children)
 
 
 
