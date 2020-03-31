@@ -6,10 +6,10 @@
   <h2>List of children</h2>
 
   <ul>
-    {% for child in childs_name %}
+    {% for child in children %}
       <li>
-        <a href="/childsprofile/{{ child.child_id }}">
-          {{ child.child_id }} ({{ child.child }})
+        <a href="/children/{{ child.childs_id }}">
+          {{ child.childs_id }} ({{ child.childs_name }})
         </a>
       </li>
     {% endfor %}

@@ -131,10 +131,11 @@ def logout():
 @app.route('/profile/<int:parent_id>')
 def parentprofile(parent_id):
     """This is the parent's homepage."""
-     
+    
     parent = Parent.query.get(parent_id)
-    matches = Parent.query.filter(Activity.activity_id==1).all()
-    #matches = db.session.query(Parent).filter(Activity.activity_id==(1)).all()
+    for activity in parent.activities:
+        activity.matches = Activity.query.get(activity.activity_id).parents
+
 
 
     #children = Child.query.filter(Child.parents.parent_id==parent_id).all()
@@ -166,13 +167,11 @@ def show_activities():
 ################################################################################
 
 
-@app.route('/children/<int:child_id>')
-def childprofile(child_id):
+@app.route('/children/<int:childs_id>')
+def childprofile(childs_id):
     """This is the parent's homepage."""
      
-    childs_name = Child.query.get(child_id)
-    matches = Child.query.filter(Activity.activity_id==1).all()
-
+    childs_name = Child.query.get(childs_id)
     return render_template("childsprofile.html",
                            childs_name=childs_name,
                            matches=matches)
@@ -180,8 +179,8 @@ def childprofile(child_id):
 @app.route('/childrenlist')
 def show_children():
     """List the children"""
-    childs_name = Child.query.all()
-    return render_template('childrenlist.html', childs_name=childs_name)
+    children = Child.query.all()
+    return render_template('childrenlist.html', children=children)
 
 
 

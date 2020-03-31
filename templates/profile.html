@@ -31,7 +31,7 @@
 
             <a>
             <div class="container">
-            <a href="/childlist?next_route=childlist" class="btn btn-outline-success" role="button">Connect children </a>
+            <a href="/childrenlist?next_route=childrenlist" class="btn btn-outline-success" role="button">Connect children </a>
             <div class="container">
             <a href="/activitylist?next_route=activitylist" class="btn btn-outline-success" role="button">View  list of activities</a>
             <div class="container">
@@ -45,21 +45,24 @@
 </h1>
     <table>
         <tr>
-         <p> Matches </p>
-         {% if matches %}
-         <ul>
-         {%for match in matches%}
-         <li><a href="/profile/{{match.parent_id}}">{{match.username}}</a></li>
-         {% endfor %}
-     </ul>
-     {% endif %}
          <br>
             <p>Your activities of choice</p>
             {% if parent.activities %}
              <ul>
             {% for activity in parent.activities %}
-            <li><a href="/activities/{{activity.activity_id}}">{{activity.activity_name}}</a></li>
+            <li><a href="/activities/{{activity.activity_id}}">
+            {{activity.activity_name}}</a></li>
+            <p> Matches </p>
+            {% if activity.matches %}
+            <ul>
+            {%for match in activity.matches%}
+            {%if parent != match %}
+            <li><a href="/profile/{{match.parent_id}}">{{match.username}}</a></li>
+            {%endif%}
             {% endfor %}
+        </ul>
+        {% endif %}
+        {% endfor %}
         </ul>
     {% endif %}
 </div>
