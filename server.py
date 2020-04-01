@@ -144,8 +144,7 @@ def parentprofile(parent_id):
     return render_template("profile.html",
                            #children=children,
                            #activities=activities,
-                           parent=parent,
-                           matches=matches)
+                           parent=parent)
 
 
 @app.route('/parentlist')
@@ -157,11 +156,18 @@ def show_parents():
 
 
 ################################################################################
-
-@app.route('/activitylist')
-def show_activities():
+#parentactivities 
+@app.route('/parentsactivity')
+def show_parentactivities():
     """List the activities"""
-    activities = Activity.query.all()
+    activities = Activity.query.filter(Activity.for_parents).all()
+    return render_template('activitylist.html', activities=activities)
+
+#childs activity
+@app.route('/childsactivity')
+def show_childactivities():
+    """List the activities"""
+    activities = Activity.query.filter(Activity.for_children).all()
     return render_template('activitylist.html', activities=activities)
 
 ################################################################################
@@ -171,9 +177,12 @@ def show_activities():
 def childprofile(childs_id):
     """This is the parent's homepage."""
      
-    childs_name = Child.query.get(childs_id)
+    child = Child.query.get(childs_id)
+    matches = Child.query.filter(Child.childs_age==child.childs_age).all()
+    #for childs_age in child.children:
+        #activity.matches = Activity.query.get(activity.activity_id).children
     return render_template("childsprofile.html",
-                           childs_name=childs_name,
+                           child=child,
                            matches=matches)
 
 @app.route('/childrenlist')
@@ -183,13 +192,8 @@ def show_children():
     return render_template('childrenlist.html', children=children)
 
 
-
-
-
 #todo
-#connection from one childs profile to the other 
 #set up each activity page (coffee shop, etc )
-#make sure matches are correct 
 #edit the edit profile info page  
 
 ################################################################################

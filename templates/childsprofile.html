@@ -8,15 +8,15 @@
 </h1>
     <table>
         <tr valign="top">
-            <td><img src="{{ childs_name.avatar(128) }}"></td>
-            <td><h1>Childs profile: {{ childs_name.childs_name }}</h1></td>
+            <td><img src="{{ child.avatar(128) }}"></td>
+            <td><h1>Childs profile: {{ child.childs_name }}</h1></td>
         </tr>
     </table>
     <hr>
 </p>
-            <div class="container">
-            <a href="/activitylist?next_route=activitylist" class="btn btn-outline-success" role="button">View  list of activities</a>
-            <div class="container">
+        <div class="container">
+        <a href="/childsactivity"class="btn btn-outline-success" role="button">View  list of activities</a>
+        <div class="container">
         </a>
         </tr>
     </table>
@@ -31,15 +31,19 @@
          {% if matches %}
          <ul>
          {%for match in matches%}
+        {%if child.childs_id != match.childs_id %}
+
          <li><a href="/childsprofile/{{match.childs_name}}">{{match.childs_name}}</a></li>
+        {%endif%}
+
          {% endfor %}
      </ul>
      {% endif %}
          <br>
             <p>Your activities of choice</p>
-            {% if childs_name.activities %}
+            {% if child.activities %}
              <ul>
-            {% for activity in childs_name.activities %}
+            {% for activity in child.activities %}
             <li><a href="/activities/{{activity.activity_id}}">{{activity.activity_name}}</a></li>
             {% endfor %}
         </ul>
@@ -52,9 +56,9 @@
     <table>
         <tr>
     <p>List of parents</p>
-    {% if childs_name.parents %}
+    {% if child.parents %}
         <ul>
-            {% for parent in childs_name.parents %}
+            {% for parent in child.parents %}
             <li><a href="/profile/{{parent.parent_id}}">{{parent.username}}</a></li>
             {% endfor %}
         </ul>
