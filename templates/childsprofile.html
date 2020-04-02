@@ -4,81 +4,90 @@
 
 
 <h1 class="title">
-  Profile Page
+  Childs Profile
 </h1>
-    <table>
-        <tr valign="top">
-            <td><img src="{{ child.avatar(128) }}"></td>
-            <td><h1>Childs profile: {{ child.childs_name }}</h1></td>
-        </tr>
-    </table>
-    <hr>
-</p>
-        <div class="container">
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+img {
+  border-radius: 50%;
+}
+</style>
+</head>
+<body>
+    <img src="{{ child.avatar(128) }}" alt="Avatar" style="width:150px">
+        <br>
+            <h1>Name: {{ child.childs_name }}</h1>
+            <h1>Age: {{ child.childs_age}}</h1>
+            <h1>Zipcode {{ child.zipcode}}</h1>
+            <hr>
+</body>
+</html> 
+
+<table>
+    <div class="container">
         <a href="/childsactivity"class="btn btn-outline-success" role="button">View  list of activities</a>
-        <div class="container">
+    <div class="container">
         </a>
-        </tr>
-    </table>
+    </tr>
+</table>
     <hr>
-</p>
 
 
-</h1>
-    <table>
+<table>
+    <div>
         <tr>
-         <p> Matches </p>
-         {% if matches %}
-         <ul>
-         {%for match in matches%}
-        {%if child.childs_id != match.childs_id %}
+            <p> Matches </p>
+            {% if matches %}
+            <ul>
+            {%for match in matches%}
+            {%if child.childs_id != match.childs_id %}
 
-         <li><a href="/childsprofile/{{match.childs_name}}">{{match.childs_name}}</a></li>
-        {%endif%}
+            <li><a href="/childsprofile/{{match.childs_name}}">{{match.childs_name}}</a></li>
+            {%endif%}
 
-         {% endfor %}
-     </ul>
-     {% endif %}
-         <br>
+            {% endfor %}
+            </ul>
+            {% endif %}
+            <br>
             <p>Your activities of choice</p>
             {% if child.activities %}
              <ul>
             {% for activity in child.activities %}
             <li><a href="/activities/{{activity.activity_id}}">{{activity.activity_name}}</a></li>
             {% endfor %}
-        </ul>
-    {% endif %}
-</div>
-    </br>
+            </ul>
+            {% endif %}
+            </br>
         </tr>
-    </table>
+    </div>
+</table>
 
-    <table>
-        <tr>
-    <p>List of parents</p>
-    {% if child.parents %}
+<table>
+    <tr>
+        <div>
+        <p>List of parents</p>
+        {% if child.parents %}
         <ul>
-            {% for parent in child.parents %}
-            <li><a href="/profile/{{parent.parent_id}}">{{parent.username}}</a></li>
-            {% endfor %}
+        {% for parent in child.parents %}
+        <li><a href="/profile/{{parent.parent_id}}">{{parent.username}}</a></li>
+        {% endfor %}
         </ul>
-    {% endif %}
-</div>
-        </tr>
-    </table>
-    <hr>
-</p>
+        {% endif %}
+        </div>
+    </tr>
+</table>
+<hr>
 
 <div>
     <br>
     <p>
     </p>
-<a href="/childsprofile?next_route=add_location" class="btn btn-outline-success" role="button">Edit profile information</a>
+    <a href="/childsprofile" class="btn btn-outline-success" role="button">Edit profile information</a>
     <br>
 </div>
-<div>
-    <br>
-    <p>
 
 
 
