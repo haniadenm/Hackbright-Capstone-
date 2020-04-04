@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-
+<!----------Bootstrap -------------------------------> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,19 +52,41 @@
 </head>
 <body>
 
-<h2>Colored Button Borders</h2>
-<p>Use the border property to add a border to the button:</p>
 
-<button class="button button1">Green</button>
-<button class="button button2">Blue</button>
-<button class="button button3">Red</button>
-<button class="button button4">Gray</button>
-<button class="button button5">Black</button>
-
+<!--------------- Columns --------------------------------------------------->
 <html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+</head>
+<!------------------- View list of Children -------------------------------->
 <body>
-<div class="well spaced" style="width:60%">
+<h2>It takes a village </h2>
+
+<div class="row">
+  <div class="column" style="btn btn-warning">
+    <h2><div class="well spaced" style="width:60%">
   <h2>List of children</h2>
+  <br>
 
   <ul>
     {% for child in children %}
@@ -74,33 +96,33 @@
         </a>
       </li>
     {% endfor %}
-<br>
-<h1>The button Element</h1>
+<br></h2>
+  </div>
 
-=====================
-<!----add child form ----->
-<form action="/addchild" method="post">
-  <label for="parent_id">Parent_id:</label><br>
-  <input type="text" id="parent_id" name="parent_id"><br>
-  <label for="childsname">Childs name:</label><br>
-  <input type="text" id="childs_name" name="childs_name"><br>
-  <label for="childsage">Childs age: </label><br>
-  <input type="text" id="childs_age" name="childs_age"><br><br>
-  <label for="zipcode"> Zipcode: </label><br>
-  <input type="text" id="zicode" name="zipcode"><br><br>
-  <input type="submit" value="Submit">
-</form> 
+  <div class="column" style="btn btn-warning">
+    <h2> Add Children 	</h2>
+    <br>
+		<form action="/addchild" method="post">
+			<label for="parent_id">Parent_id:</label><br>
+			<input type="text" id="parent_id" name="parent_id"><br>
+			<label for="childsname">Childs name:</label><br>
+			<input type="text" id="childs_name" name="childs_name"><br>
+			<label for="childsage">Childs age: </label><br>
+			<input type="text" id="childs_age" name="childs_age"><br><br>
+			<label for="zipcode"> Zipcode: </label><br>
+			<input type="text" id="zicode" name="zipcode"><br><br>
+			<input type="submit" value="Submit">
+		</form> 
+  </div>
+</div>
 
-
-
-===================
-<button type="button" onclick="alert('Hello world!')">Click Me!</button>
- 
 </body>
 </html>
 
 
-            <div class="col-md-6 gedf-main">
+
+
+<div class="col-md-6 gedf-main">
     <a href="https://imgur.com/UBHjXDU"><img src="https://i.imgur.com/UBHjXDU.png" title="source: imgur.com" /></a>
 </div>
 {% endblock %}

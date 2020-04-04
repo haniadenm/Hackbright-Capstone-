@@ -31,7 +31,6 @@ login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
 
-
 @login_manager.user_loader
 def load_user(parent_id):
     return Parent.query.get(int(parent_id))
@@ -39,8 +38,6 @@ def load_user(parent_id):
 
 def load_user(parent_id):
     return Parent.get(parent_id)
-
-
 
 ################################################################################
 #route for homepage 
@@ -125,8 +122,7 @@ def logout():
 
 
 ################################################################################
-
-
+#parent profile page 
 
 @app.route('/profile/<int:parent_id>')
 def parentprofile(parent_id):
@@ -171,7 +167,7 @@ def show_childactivities():
     return render_template('activitylist.html', activities=activities)
 
 ################################################################################
-
+#childrens homepage 
 
 @app.route('/children/<int:childs_id>')
 def childprofile(childs_id):
@@ -195,7 +191,8 @@ def show_children():
 
     return render_template('childrenlist.html', children=children)
 
-
+################################################################################
+#add child
 
 @app.route('/addchild', methods=['POST'])
 def add_child():
@@ -216,7 +213,7 @@ def add_child():
 
 #todo
 #set up each activity page (coffee shop, etc )
-#edit the edit profile info page  
+ 
 
 ################################################################################
 

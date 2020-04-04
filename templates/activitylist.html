@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
-<div class="well spaced" style="width:60%">
-  <h2>Activities</h2>
+<!--------------------- activities ------------------------------------------>
 
-  <ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>List of activites</title>
+ <ul>
     {% for activity_name in activities %}
       <li>
         <a href="/activity/{{ activity_name.activity_id }}">
@@ -13,67 +14,12 @@
         </a>
       </li>
     {% endfor %}
-  </ul>
-            <div class="col-md-6 gedf-main">
-    <a href="https://imgur.com/UBHjXDU"><img src="https://i.imgur.com/UBHjXDU.png" title="source: imgur.com" /></a>
-
-    <!DOCTYPE html>
-<html>
-<head>
-<style>
-div.gallery {
-  margin: 5px;
-  border: 1px solid #ccc;
-  float: left;
-  width: 180px;
-}
-
-div.gallery:hover {
-  border: 1px solid #777;
-}
-
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
-
-div.desc {
-  padding: 15px;
-  text-align: center;
-}
-</style>
+  <meta charset="utf-8">
+  <a href="https://imgur.com/Dvj0wOs"><img src="https://i.imgur.com/Dvj0wOs.jpg?2" title="source: imgur.com" /></a>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <a href="https://imgur.com/aFYY7NR"><img src="https://i.imgur.com/aFYY7NR.jpg" title="source: imgur.com" /></a>
+  <a href="https://imgur.com/qhYahGS"><img src="https://i.imgur.com/qhYahGS.jpg?2" title="source: imgur.com" /></a>
 </head>
 <body>
 
-<div class="gallery">
-  <a target="_blank" href="img_5terre.jpg">
-    <img src="img_5terre.jpg" alt="Cinque Terre" width="600" height="400">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="img_forest.jpg">
-    <img src="img_forest.jpg" alt="Forest" width="600" height="400">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="img_lights.jpg">
-    <img src="img_lights.jpg" alt="Northern Lights" width="600" height="400">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
-
-<div class="gallery">
-  <a target="_blank" href="img_mountains.jpg">
-    <img src="img_mountains.jpg" alt="Mountains" width="600" height="400">
-  </a>
-  <div class="desc">Add a description of the image here</div>
-</div>
-
-</body>
-</html>
-</div>
 {% endblock %}

@@ -35,16 +35,10 @@ crossorigin="anonymous"></script>
 <div class="container">
   <a href="/parentlist?next_route=parentlist" class="btn btn-warning" role="button">Parents list</a>
   <a href="/childrenlist?next_route=childrenlist" class="btn btn-warning" role="button">Connect children </a>
-  <a href="/parentsactivity" class="btn btn-warning" role="button">View activities</a>
-
-  <button type="button" class="btn btn-link">Link</button>      
+  <a href="/parentsactivity" class="btn btn-warning" role="button">View activities</a>  
 </div>
-
 </body>
 </html>
-
-----
-
 
 
 
@@ -76,12 +70,16 @@ crossorigin="anonymous"></script>
 <div class="col-md-6 gedf-main">
 
 <a href="https://imgur.com/UBHjXDU"><img src="https://i.imgur.com/UBHjXDU.png" title="source: imgur.com" /></a>
+
+
 <!--- \\\\\\\Post-->
+
+
 <div class="card gedf-card">
-<div class="card-header">
+<div class="btn btn-warning">
 <div class="d-flex justify-content-between align-items-center">
 <div class="d-flex justify-content-between align-items-center">
-<div class="mr-2">
+<div class="btn btn-warning">
 <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
 </div>
 <div class="ml-2">
@@ -127,7 +125,7 @@ When I am talking about "It Takes a Village", I'm obviously not talking just abo
 
 <!--- \\\\\\\Post-->
 <div class="card gedf-card">
-<div class="card-header">
+<div class="btn btn-warning">
 <div class="d-flex justify-content-between align-items-center">
 <div class="d-flex justify-content-between align-items-center">
 <div class="mr-2">
@@ -179,16 +177,16 @@ People say it takes a village to raise a child. People ask me how my daughter is
 <div class="col-md-3">
 
 <div class="card gedf-card">
-<div class="card-body">
-<h5 class="card-title">Profile info</h5>
-<h6 class="card-subtitle mb-2 text-muted">List of activities</h6>
+<div class="btn btn-warning">
+
+<h4 class="card-subtitle mb-2 text-muted">List of activities</h4>
 {% if parent.activities %}
 <ul>
 {% for activity in parent.activities %}
 <li><a href="/activities/{{activity.activity_id}}">
 {{activity.activity_name}}</a></li>
 <br>
-<h6 class="card-subtitle mb-2 text-muted">Matches</h6>
+<h4 class="card-subtitle mb-2 text-muted">Matches</h4>
 {% if activity.matches %}
 <ul>
 {%for match in activity.matches%}
@@ -205,9 +203,8 @@ People say it takes a village to raise a child. People ask me how my daughter is
 </div>
 </div>
 <div class="card gedf-card">
-<div class="card-body">
-<h5 class="card-title">Connect your children</h5>
-<h6 class="card-subtitle mb-2 text-muted">Your listed children</h6>
+<div class="btn btn-warning">
+<h4 class="card-subtitle mb-2 text-muted">Your listed children</h4>
 {% if parent.children %}
 <ul>
 {% for child in parent.children %}
