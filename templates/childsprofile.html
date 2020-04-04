@@ -75,11 +75,21 @@
 
 <h2>Welcome to your profile page {{child.childs_name }} </h2>
 
-<div class="container">
+
+<div class="row">
+ 
+  <div class="column" style="background-color:#008B8B;">
+    <h2></h2>
+    <p><a href="/childrenlist?next_route=childrenlist" class="btn btn-outline-success" role="button">Connect with other children </a></p>
+  </div>
+  <div class="column" style="background-color:#008B8B;">
+    <h2></h2>
+    <p><div class="container">
 <a href="/parentsactivity" class="btn btn-outline-success" role="button">View activities</a>
 </div></p>
   </div>
 </div>
+
 
 <br>
 </body>
@@ -147,10 +157,15 @@
                             {% if child.parents %}
                             <ul>
                             {% for parent in child.parents %}
-                            <li><a href="/profile/{{parent.parent_id}}">{{parent.username}}</a></li>
+                            <li><a href="/profile/{{parent.parent_id}}">{{parent.parent_id}}</a></li>
                             {% endfor %}
-                            </ul>
+
+                            {%else%}
+                            {{parent_id}}
                             {% endif %}
+                            </ul>
+                          
+
 
                          </div>
 

@@ -109,6 +109,17 @@ def parent_child():
 
     # Once we're done, we should commit our work
     db.session.commit()
+def set_val_parent_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(Parent.parent_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('parents_parent_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
+    db.session.commit()
 
 def childs_activity():
     """Load chidlren from c.user into database."""
@@ -131,6 +142,18 @@ def childs_activity():
         db.session.add(ca)
 
     # Once we're done, we should commit our work
+    db.session.commit()
+
+def set_val_child_id():
+    """Set value for the next user_id after seeding database"""
+
+    # Get the Max user_id in the database
+    result = db.session.query(func.max(Child.child_id)).one()
+    max_id = int(result[0])
+
+    # Set the value for the next user_id to be max_id + 1
+    query = "SELECT setval('children_child_id_seq', :new_id)"
+    db.session.execute(query, {'new_id': max_id + 1})
     db.session.commit()
 
 def parent_activity():
@@ -158,15 +181,17 @@ def parent_activity():
 
 if __name__ == "__main__":
     connect_to_db(app)
+   
+    # In case tables haven't been created, create them
+    #Parentactivity.query.delete()
+    #Childactivity.query.delete()
+    #Parentchild.query.delete()
+    #Activity.query.delete()
+    #Child.query.delete()
+    #Parent.query.delete()
+    #db.drop_all()
 
     db.create_all()
-    # In case tables haven't been created, create them
-    Parentactivity.query.delete()
-    Childactivity.query.delete()
-    Parentchild.query.delete()
-    Activity.query.delete()
-    Child.query.delete()
-    Parent.query.delete()
         # we won't be trying to add duplicate children
 
     # Import different types of data

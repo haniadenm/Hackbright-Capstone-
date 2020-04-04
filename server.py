@@ -179,18 +179,40 @@ def childprofile(childs_id):
      
     child = Child.query.get(childs_id)
     matches = Child.query.filter(Child.childs_age==child.childs_age).all()
+    parent_id = session["parent_id"]
+
     #for childs_age in child.children:
         #activity.matches = Activity.query.get(activity.activity_id).children
     return render_template("childsprofile.html",
                            child=child,
-                           matches=matches)
+                           matches=matches,
+                           parent_id=parent_id)
 
 @app.route('/childrenlist')
 def show_children():
     """List the children"""
     children = Child.query.all()
+
     return render_template('childrenlist.html', children=children)
 
+
+
+@app.route('/addchild', methods=['POST'])
+def add_child():
+ if request.method == "POST":
+        childs_name = request.form.get('childs_name')
+        childs_age = request.form.get('childs_age')
+        zipcode = request.form.get('zipcode')
+        #parent_id = Child.query.filter_by(parents.parent_id==parent_id).first()
+        
+        new_child = Child(childs_name=childs_name, childs_age=childs_age, zipcode=zipcode)
+        db.session.add(new_child)
+        db.session.commit()
+
+        childs_id = new_child.childs_id
+        session["childs_id"] = childs_id
+
+        return redirect(f'/children/{new_child.childs_id}')
 
 #todo
 #set up each activity page (coffee shop, etc )

@@ -148,6 +148,4 @@ if __name__ == "__main__":
 
     from server import app
     connect_to_db(app)
-    db.create_all()
-    #db.drop_all()
     print("Connected to DB.")

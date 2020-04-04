@@ -1,7 +1,68 @@
 {% extends 'base.html' %}
-
-
 {% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.button3 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.button4 {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.button5 {
+  background-color: white;
+  color: black;
+  border: 2px solid #555555;
+}
+</style>
+</head>
+<body>
+
+<h2>Colored Button Borders</h2>
+<p>Use the border property to add a border to the button:</p>
+
+<button class="button button1">Green</button>
+<button class="button button2">Blue</button>
+<button class="button button3">Red</button>
+<button class="button button4">Gray</button>
+<button class="button button5">Black</button>
+
+<html>
+<body>
 <div class="well spaced" style="width:60%">
   <h2>List of children</h2>
 
@@ -13,6 +74,31 @@
         </a>
       </li>
     {% endfor %}
+<br>
+<h1>The button Element</h1>
+
+=====================
+<!----add child form ----->
+<form action="/addchild" method="post">
+  <label for="parent_id">Parent_id:</label><br>
+  <input type="text" id="parent_id" name="parent_id"><br>
+  <label for="childsname">Childs name:</label><br>
+  <input type="text" id="childs_name" name="childs_name"><br>
+  <label for="childsage">Childs age: </label><br>
+  <input type="text" id="childs_age" name="childs_age"><br><br>
+  <label for="zipcode"> Zipcode: </label><br>
+  <input type="text" id="zicode" name="zipcode"><br><br>
+  <input type="submit" value="Submit">
+</form> 
+
+
+
+===================
+<button type="button" onclick="alert('Hello world!')">Click Me!</button>
+ 
+</body>
+</html>
+
 
             <div class="col-md-6 gedf-main">
     <a href="https://imgur.com/UBHjXDU"><img src="https://i.imgur.com/UBHjXDU.png" title="source: imgur.com" /></a>
