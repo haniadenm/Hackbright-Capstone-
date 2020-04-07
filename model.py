@@ -44,8 +44,6 @@ class Parent(db.Model, UserMixin):
             digest, size)
     #extra features to work on 
     #about_me = db.Column(db.Text, nullable=True)
-
-    #children = db.relationship('Child', backref= 'parents')
     #messages = db.relationship('Message')
 
 class Child(db.Model, UserMixin):

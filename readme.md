@@ -1,13 +1,26 @@
 # It takes a village
 
-Platform designed to connect parents, grandparents and caregivers. Parents can connect with other parents and plan an activity depending on their interests. Parents can also connect their children (of the same age groups) and depending on what their children are into pick an activity for them to meet up and do. Activity list will include parent activities such as (Paint night, movies, coffee shop and museums). Activities for children will include (Parks, outdoor activities, play areas, movies, sporting events and museums.)
+It takes a village is a platform designed to connect parents, children and caregivers. It is designed to take the stress out of planning a meet up. The application would make  viewing, signing up and being matched easier for user’s, specific to their needs. Parents can sign up to the application and select their intent. They have the option to meet other parents with the same interests who are in their zip code. They can also connect their children with other children who are in the same age group. Once they select an activity, the application is designed to match them up with other parents/ children in their area.  My goal was to take the stress out of building relationships. 
+
+Future plans : 
+* Create a search function
+* Create a chat box
+* Apply google Api for location 
+
+
+## Tech Stack
+Python and SQLALchemy backend
+Flask web framework
+PostgresSQL database
 
 
 ## Features
 
-* View other parents profile 
-* Search for activities 
+* Parent can sign up
 * Plan a meetup (depending on intent - parent-parent or child-child)
+* View other parents profile 
+* View list of activities
+* View child's profile
 
 
 ### Planning
@@ -26,13 +39,14 @@ Project Board : https://github.com/users/haniadenm/projects/3 User Flow : https:
 
 As a guest, I can ...
 - [x] Create a new account
-- [ ] Browse all the parent
-- [ ] Browse all children
-- [ ] connect with parent 
-- [ ] connect with child  
+- [x] Browse all the parent
+- [x] Browse all children
+- [x] connect parents with shared activity interests
+- [x] connect with children in the same age group
 
 As a user, I can ...
 - [x] Login/logout
-- [ ] View my account profile
-- [ ] Search for parents in area
-- [ ] Connect children
+- [x] Signup 
+- [x] View my account profile
+- [x] Search for parents in area
+- [x] Connect children

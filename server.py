@@ -175,14 +175,13 @@ def childprofile(childs_id):
      
     child = Child.query.get(childs_id)
     matches = Child.query.filter(Child.childs_age==child.childs_age).all()
-    parent_id = session["parent_id"]
+    #parent.parent_id = session["parent_id"]
 
     #for childs_age in child.children:
-        #activity.matches = Activity.query.get(activity.activity_id).children
+    #activity.matches = Activity.query.get(activity.activity_id).children
     return render_template("childsprofile.html",
                            child=child,
-                           matches=matches,
-                           parent_id=parent_id)
+                           matches=matches)
 
 @app.route('/childrenlist')
 def show_children():
